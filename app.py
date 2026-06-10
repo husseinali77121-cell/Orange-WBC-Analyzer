@@ -13,7 +13,7 @@ Run:
 import streamlit as st
 
 # Instead of: api_key = st.sidebar.text_input("API Key")
-api_key = st.secrets["ANTHROPIC_API_KEY"]
+api_key = st.secrets["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"]
 import anthropic
 import base64
 import json
