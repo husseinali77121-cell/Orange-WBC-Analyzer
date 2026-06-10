@@ -12,17 +12,8 @@ Run:
 """
 import streamlit as st
 
-st.set_page_config(page_title="...")
-
-# إخفاء GitHub وعناصر Streamlit
-st.markdown("""
-    <style>
-    .stActionButton {display: none !important;}
-    #MainMenu {visibility: hidden !important;}
-    footer {visibility: hidden !important;}
-    header[data-testid="stHeader"] {display: none !important;}
-    </style>
-""", unsafe_allow_html=True)
+# Instead of: api_key = st.sidebar.text_input("API Key")
+api_key = st.secrets["ANTHROPIC_API_KEY"]
 import anthropic
 import base64
 import json
