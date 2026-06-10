@@ -12,8 +12,12 @@ Run:
 """
 import streamlit as st
 
-# Instead of: api_key = st.sidebar.text_input("API Key")
-api_key = "]
+# ── API Key: load from Streamlit Secrets, fallback to sidebar input ──
+try:
+    api_key = st.secrets["ANTHROPIC_API_KEY"]
+except Exception:
+    api_key = ""
+
 import anthropic
 import base64
 import json
@@ -447,8 +451,17 @@ st.markdown("""
 # ──────────────────────────────────────────────
 with st.sidebar:
     st.markdown("## ⚙️ Settings")
-    api_key = st.text_input("Anthropic API Key", type="password",
-                            help="Your Claude API key — never stored")
+
+    # Show API key status or input field
+    if api_key:
+        st.success("✅ API Key loaded from secrets")
+    else:
+        api_key = st.text_input(
+            "Anthropic API Key",
+            type="password",
+            help="Your Claude API key — never stored. Or add to Streamlit secrets.",
+        )
+
     st.divider()
     st.markdown("### 🔬 Slide Parameters")
     stain_type = st.selectbox("Stain Type",
